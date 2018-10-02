@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
+
 namespace TravelLanguageAssistant.Droid
 {
 	[Activity(Label = "TravelLanguageAssistant", Icon = "@drawable/travel", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -18,7 +19,7 @@ namespace TravelLanguageAssistant.Droid
 			ToolbarResource = Resource.Layout.Toolbar;
 
 			base.OnCreate(savedInstanceState);
-
+			Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
 			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 			LoadApplication(new App());
 		}
