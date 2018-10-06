@@ -7,6 +7,7 @@
 				TextColor="White" 
 				BackgroundColor="MediumSeaGreen" 
 				VerticalOptions="EndAndExpand"
+				Command="{Binding TakePhotoTranslateCommand}"
 				/>
 	</StackLayout>
 </ContentPage>

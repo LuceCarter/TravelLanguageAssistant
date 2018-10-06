@@ -19,6 +19,7 @@ namespace TravelLanguageAssistant.Droid
 			ToolbarResource = Resource.Layout.Toolbar;
 
 			base.OnCreate(savedInstanceState);
+			Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 			Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
 			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 			LoadApplication(new App());
@@ -26,7 +27,9 @@ namespace TravelLanguageAssistant.Droid
 
 		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
 		{
+			Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 			Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+			base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
 	}
 

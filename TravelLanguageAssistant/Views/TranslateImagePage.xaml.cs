@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Xamarin.Forms;
+using TravelLanguageAssistant.ViewModels;
 
 namespace TravelLanguageAssistant.Views
 {
@@ -10,6 +11,7 @@ namespace TravelLanguageAssistant.Views
 		public TranslateImagePage()
 		{
 			InitializeComponent();
+			BindingContext = new TranslateImageViewModel();
 		}
 	}
 }

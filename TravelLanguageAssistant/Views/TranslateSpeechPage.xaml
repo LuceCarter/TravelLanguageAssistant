@@ -4,6 +4,7 @@
 		<Button Text="Record Conversation to Translate"
 				TextColor="White"
 				BackgroundColor="MediumSeaGreen"
-				VerticalOptions="EndAndExpand"/>
+				VerticalOptions="EndAndExpand"
+				Command="RecordConversationCommand"/>
 	</StackLayout>
 </ContentPage>

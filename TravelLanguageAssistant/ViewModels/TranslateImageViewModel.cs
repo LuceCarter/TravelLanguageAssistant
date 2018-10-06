@@ -2,6 +2,9 @@
 using MvvmHelpers;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Microsoft.AppCenter.Analytics;
+using Plugin.Media;
+using Xamarin.Essentials;
 
 namespace TravelLanguageAssistant.ViewModels
 {
@@ -13,15 +16,36 @@ namespace TravelLanguageAssistant.ViewModels
 
 		}
 
+		public Image image;
+
 		public ICommand TakePhotoTranslateCommand
 		{
-			get
+			get => new Command(async () =>
 			{
-				return new Command(() =>
+				CrossMedia.Current.Initialize();
+
+				if (CrossMedia.Current.IsCameraAvailable || CrossMedia.Current.IsTakePhotoSupported)
 				{
-					// TODO: Call a photo taking method
-				});
-			}
+					var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+					{
+						Directory = "Travel Language Assistant",
+						Name = "ImageForTranslation.jpg"
+					});
+
+					if (file == null) return;
+
+				}
+				else
+				{
+					Application.Current.MainPage.DisplayAlert("No Camera", "No Camera Available.", "OK");
+					return;
+				}
+
+			});
 		}
+
 	}
+
+
 }
+
