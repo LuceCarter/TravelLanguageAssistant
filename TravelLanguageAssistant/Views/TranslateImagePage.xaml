@@ -3,6 +3,8 @@
 			xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 			x:Class="TravelLanguageAssistant.Views.TranslateImagePage">
 	<StackLayout>
+		<Image Source="{Binding ImageForAnalysis}" />
+		<Label Text="{Binding AnalysedTextResult}" />
 		<Button Text="Take Photo for Translation" 
 				TextColor="White" 
 				BackgroundColor="MediumSeaGreen" 
