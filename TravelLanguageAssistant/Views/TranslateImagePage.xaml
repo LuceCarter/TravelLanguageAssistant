@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
 			xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-			x:Class="TravelLanguageAssistant.Views.TranslateImagePage">
-	<StackLayout>
+			x:Class="TravelLanguageAssistant.Views.TranslateImagePage" BackgroundColor="#ffffcc
+">
+	<StackLayout Padding="25">
 		<Image Source="{Binding ImageForAnalysis}" />
-		<Label Text="{Binding AnalysedTextResult}" />
+		<Label Text="{Binding AnalysedTextResult}" 
+			   HorizontalOptions="CenterAndExpand" 
+			   VerticalOptions="Center" 
+			   FontSize="60"/>
 		<Button Text="Take Photo for Translation" 
 				TextColor="White" 
 				BackgroundColor="MediumSeaGreen" 
 				VerticalOptions="EndAndExpand"
 				Command="{Binding TakePhotoTranslateCommand}"
+				FontSize="26"
+				CornerRadius="15"
 				/>
 	</StackLayout>
 </ContentPage>

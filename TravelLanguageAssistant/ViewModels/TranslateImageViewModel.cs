@@ -15,7 +15,10 @@ using System.Threading.Tasks;
 using Plugin.Media.Abstractions;
 using System.Dynamic;
 using System.Text;
-
+using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Linq;
 
 namespace TravelLanguageAssistant.ViewModels
 {
@@ -65,11 +68,12 @@ namespace TravelLanguageAssistant.ViewModels
 						{
 							foreach (var word in line.Words)
 							{
-								sb.Append(" " + word.Text);
+								sb.Append(word.Text + " ");
 							}
 						}
 					}
-					AnalysedTextResult = sb.ToString();
+
+					await TranslateText(sb.ToString().TrimEnd());
 				}
 			}
 
@@ -86,7 +90,39 @@ namespace TravelLanguageAssistant.ViewModels
 			set => SetProperty(ref textResult, value);
 		}
 
+		private async Task TranslateText(string textToTranslate)
+		{
+			string host = "https://api.cognitive.microsofttranslator.com";
+			string path = "/translate?api-version=3.0";
 
+			// Translate to English
+			string params_ = "&to=en";
+
+			string uri = host + path + params_;
+
+			System.Object[] body = new System.Object[] { new { Text = textToTranslate } };
+			var requestBody = JsonConvert.SerializeObject(body);
+
+			using (var client = new HttpClient())
+			using (var request = new HttpRequestMessage())
+			{
+				request.Method = HttpMethod.Post;
+				request.RequestUri = new Uri(uri);
+				request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+				request.Headers.Add("Ocp-Apim-Subscription-Key", AzureKeys.AzureSpeechAPIKey);
+
+				var response = await client.SendAsync(request);
+				var responseBody = await response.Content.ReadAsStringAsync();
+
+				JArray translatedText = JArray.Parse(responseBody);
+				dynamic jo = JObject.Parse(translatedText[0].ToString());
+				var translations = jo["translations"];
+				var t = translations[0];
+				var text = translations[0]["text"];
+
+				AnalysedTextResult = text;
+			}
+		}
 
 	}
 }
