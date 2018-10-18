@@ -6,6 +6,7 @@ namespace TravelLanguageAssistant.ViewModels
 {
 	public class TranslateSpeechViewModel
 	{
+		string
 		public Command RecordConversationCommand
 		{
 			get

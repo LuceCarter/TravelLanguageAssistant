@@ -30,8 +30,6 @@ namespace TravelLanguageAssistant.ViewModels
 			TakePhotoTranslateCommand = new Command(async () => await TakePhotoAsync());
 		}
 
-		public Image image;
-
 		MediaFile photo;
 		StreamImageSource imageSource;
 
@@ -58,11 +56,11 @@ namespace TravelLanguageAssistant.ViewModels
 					ComputerVisionClient computerVisionClient = new ComputerVisionClient(new ApiKeyServiceClientCredentials(AzureKeys.AzureComputerVisonAPIKey));
 					computerVisionClient.Endpoint = AzureKeys.AzureComputerVisionEndpoint;
 
-					var stuff = await computerVisionClient.RecognizePrintedTextInStreamAsync(true, photo.GetStream(), OcrLanguages.Unk);
-					var language = stuff.Language;
+					var ocrResult = await computerVisionClient.RecognizePrintedTextInStreamAsync(true, photo.GetStream(), OcrLanguages.Unk);
+					var language = ocrResult.Language;
 
 					var sb = new StringBuilder();
-					foreach (var region in stuff.Regions)
+					foreach (var region in ocrResult.Regions)
 					{
 						foreach (var line in region.Lines)
 						{
