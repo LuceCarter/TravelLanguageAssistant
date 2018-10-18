@@ -25,4 +25,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Services\PhotoTranslationService.cs" />
+  </ItemGroup>
 </Project>
